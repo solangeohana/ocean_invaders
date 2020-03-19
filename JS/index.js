@@ -3,6 +3,10 @@
         document.getElementById("start-button").onclick = () => {
             startGame();
         };
+        document.getElementById("tryAgain").onclick = () => {
+            location.reload()
+        };
+
         
         let canvas = document.getElementById("canvas")
         let ctx = canvas.getContext("2d")
@@ -68,8 +72,6 @@
         
         let checkGameOver = false;
 
-        let oneBottle = new Bottle();
-
         let addTwoRawsOfBottles = () => {
 
 
@@ -87,14 +89,16 @@
         
         }
         let shootAMissile = () => {
-            myMissiles.push(new Missiles)
+             myMissiles.push(new Missiles)
         }
+        setInterval(shootAMissile, 1000);
+
 
         let draw = () => {
             // frameCounter++
             drawBackground();
             drawTurtle();
-            drawMissile1();
+            drawMissiles();
             drawScore();
             drawBottles();
             collisionDetection();
@@ -168,27 +172,34 @@
                     myMissiles[i].x -= 10
                 }
                 myMissiles[i].y -= 6
-                if (myMissiles[i].y < 0) {
-                    myMissiles[i].y = turtle.y
-                }
+                // if (myMissiles[i].y < 0) {
+                //     myMissiles[i].y = turtle.y
+                // }
 
 
             }
             
         }
 
+        // add a for loop for the missiles + a splice to delete missiles 
         let collisionDetection = () => {
             for (let i = 0; i < myBottles.length; i++) {
-                if (
-                    (tearMissile1.y <= myBottles[i].y + 50) &&
-                    (tearMissile1.y >= myBottles[i].y) &&
-                    (tearMissile1.x >= myBottles[i].x) &&
-                    (tearMissile1.x <= myBottles[i].x + 50)
-                ) {
-                    myBottles.splice(i, 1);
-                    bottlesAnnihilated += 1;
+                for (let j = 0; j < myMissiles.length; j++) {
+
+                    if (
+                        (myMissiles[j].y <= myBottles[i].y + 50) &&
+                        (myMissiles[j].y >= myBottles[i].y) &&
+                        (myMissiles[j].x >= myBottles[i].x) &&
+                        (myMissiles[j].x <= myBottles[i].x + 50)
+                    ) {
+                        myBottles.splice(i, 1);
+                        myMissiles.splice(j, 1);
+                        bottlesAnnihilated += 1;
+
+                    }
                 }
             }
+
         }
 
         let drawScore = () => {
@@ -219,9 +230,11 @@
 
         let gameOver = () => {
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height)
-
+            document.getElementById("tryAgain").className = "display"
         }
-    
+        // document.getElementById("tryAgain")
+
+      
     };
     
         

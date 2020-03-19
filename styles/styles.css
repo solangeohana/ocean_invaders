@@ -3,6 +3,12 @@ body {
     text-align: center;
     background-color: lightblue;
   }
+  .displayNone{
+    display: none;
+  }
+  .display{
+    display: inherit;
+  }
 footer {
   position: static;
   color: rgb(76, 34, 226);
