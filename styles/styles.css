@@ -1,64 +1,78 @@
 body {
-    padding: 40px;
-    text-align: center;
-    background-color: lightblue;
-  }
-  .displayNone{
-    display: none;
-  }
-  .display{
-    display: inherit;
-  }
+  background-image: url(../images/ocean.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.displayNone {
+  display: none;
+}
+
+.display {
+  display: inherit;
+}
+
 footer {
   position: static;
-  color: rgb(76, 34, 226);
+  color: rgb(125, 131, 176);
 }
 
 #logoTitle {
   width: 15px;
   height: 15px;
 }
-  h1 {
-    font-size: 40px;
-    background-color: rgb(92, 111, 219);
-    color: rgb(202, 218, 236);
-    padding: 20px 40px;
-    border: 0;
-    box-shadow: 0;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
 
-  .game-intro {
-    float: left;
-    padding: 0% 10%;
-  }
-  
-  .game-intro p {
-    font-size: 20px;
-    font-family: "Arial"
-  }
-  
-  .arrows-img {
-    width: 150px;
-  }
-  
-  body button {
-    font-size: 30px;
-    background-color:#313A75;
-    color: #7279A5;
-    padding: 20px 40px;
-    border: 0;
-    box-shadow: 0;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  #game-board {
-      float: left;
-      padding: 20px 0px;
-  }
-  
-  #canvas {
-    border: 1px  blue
-  }
+h1 {
+  font-size: 40px;
+  background-color: rgb(92, 111, 219);
+  color: rgb(202, 218, 236);
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.game-intro {
+  float: left;
+  padding: 0% 10%;
+}
+
+.game-intro p {
+  font-size: 20px;
+  font-family: "arial";
+  color: #313A75;
+
+}
+
+.arrows-img {
+  width: 150px;
+}
+
+body button {
+  font-size: 30px;
+  background-color: #313A75;
+  color: #7279A5;
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#game-board {
+  float: left;
+  padding: 20px 0px;
+}
+
+#canvas {
+  border: 1px blue
+}
+
+.tryAgain {
+  text-align: center;
+}

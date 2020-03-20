@@ -91,11 +91,10 @@
         let shootAMissile = () => {
              myMissiles.push(new Missiles)
         }
-        setInterval(shootAMissile, 1000);
+        setInterval(shootAMissile, 400);
 
 
         let draw = () => {
-            // frameCounter++
             drawBackground();
             drawTurtle();
             drawMissiles();
@@ -149,10 +148,12 @@
         // }
 
 
+        let velocityBottles = 0.5
+
         let drawBottles = () => {
             for (let i = 0; i < myBottles.length; i++) {
                 ctx.drawImage(myBottles[i].img, myBottles[i].x, myBottles[i].y, 50, 50)
-                 myBottles[i].y += 0.5
+                 myBottles[i].y += velocityBottles
 
             }
 
@@ -160,6 +161,9 @@
                 addTwoRawsOfBottles();
             }
         }
+
+     
+
 
         let drawMissiles = () => {
             for (let i = 0; i < myMissiles.length; i++) {
@@ -171,11 +175,9 @@
                 if (myMissiles[i].x > 540) {
                     myMissiles[i].x -= 10
                 }
-                myMissiles[i].y -= 6
-                // if (myMissiles[i].y < 0) {
-                //     myMissiles[i].y = turtle.y
-                // }
-
+                myMissiles[i].y -= 7
+              
+                
 
             }
             
@@ -214,11 +216,11 @@
         document.onkeydown = (event) => {
             if (event.key === 'ArrowRight') {
                 turtle.x += 18
-                tearMissile1.x += 18
+                tearMissile.x += 18
             }
             if (event.key === 'ArrowLeft') {
                 turtle.x -= 18
-                tearMissile1.x -= 18
+                tearMissile.x -= 18
             }
         }
     
@@ -236,5 +238,6 @@
 
       
     };
+
     
         

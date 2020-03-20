@@ -3,6 +3,10 @@
         document.getElementById("start-button").onclick = () => {
             startGame();
         };
+        document.getElementById("tryAgain").onclick = () => {
+            location.reload()
+        };
+
         
         let canvas = document.getElementById("canvas")
         let ctx = canvas.getContext("2d")
@@ -15,9 +19,6 @@
     
         let imgTearMissile1 = new Image()
         imgTearMissile1.src = 'images/tearMissile.png'
-
-        let imgTearMissile2 = new Image()
-        imgTearMissile2.src = 'images/tearMissile.png'
     
         let imgBottle = new Image()
         imgBottle.src = 'images/bottle.png'
@@ -44,14 +45,17 @@
             height: 40,
             img: imgTearMissile1
         }
-        let tearMissile2 = {
-            x: turtle.x + 40,    
-            y: turtle.y - 5,     
-            width: 20,
-            height: 40,
-            img: imgTearMissile2
+        
+        class Missiles {
+            constructor() {
+                this.x = turtle.x + 40
+                this.y = turtle.y - 5
+                this.width = 20
+                this.height = 40
+                this.img = imgTearMissile1
+            }
         }
-    
+
         class Bottle {
             constructor(x, y, height, width) {
                 this.x = x
@@ -60,8 +64,6 @@
                 this.width = width
                 this.img = imgBottle
             }
-    
-    
         }
     
         let myMissiles =  [];
@@ -69,8 +71,6 @@
         let myBottles = [];
         
         let checkGameOver = false;
-
-        let oneBottle = new Bottle();
 
         let addTwoRawsOfBottles = () => {
 
@@ -88,12 +88,17 @@
             }
         
         }
+        let shootAMissile = () => {
+             myMissiles.push(new Missiles)
+        }
+        setInterval(shootAMissile, 1000);
+
 
         let draw = () => {
             // frameCounter++
             drawBackground();
             drawTurtle();
-            drawMissile1();
+            drawMissiles();
             drawScore();
             drawBottles();
             collisionDetection();
@@ -125,40 +130,24 @@
             }
         }
 
-        let drawMissile1 = () => {
-            ctx.drawImage(tearMissile1.img, tearMissile1.x, tearMissile1.y, tearMissile1.width, tearMissile1.height)
-            console.log('missile1')
+        // let drawMissile1 = () => {
+        //     ctx.drawImage(tearMissile1.img, tearMissile1.x, tearMissile1.y, tearMissile1.width, tearMissile1.height)
+        //     console.log('missile1')
 
-            if (tearMissile1.x < 40) {
-                tearMissile1.x += 10
-            }
-            if (tearMissile1.x > 540) {
-                tearMissile1.x -= 10
-            }
+        //     if (tearMissile1.x < 40) {
+        //         tearMissile1.x += 10
+        //     }
+        //     if (tearMissile1.x > 540) {
+        //         tearMissile1.x -= 10
+        //     }
 
-            tearMissile1.y -= 10
+        //     tearMissile1.y -= 10
 
-            if (tearMissile1.y < 0) {
-                tearMissile1.y = turtle.y
-            }
-        }
+        //     if (tearMissile1.y < 0) {
+        //         tearMissile1.y = turtle.y
+        //     }
+        // }
 
-        let drawMissile2 = () => {
-            console.log('missile2')
-            ctx.drawImage(tearMissile2.img, tearMissile2.x+20, tearMissile2.y, tearMissile2.width, tearMissile2.height)
-            if (tearMissile2.x < 40) {
-                tearMissile2.x += 10
-            }
-            if (tearMissile2.x > 540) {
-                tearMissile2.x -= 10
-            }
-
-            tearMissile2.y -= 6
-
-            if (tearMissile2.y < 0) {
-                tearMissile2.y = turtle.y
-            }
-        }
 
         let drawBottles = () => {
             for (let i = 0; i < myBottles.length; i++) {
@@ -172,18 +161,45 @@
             }
         }
 
+        let drawMissiles = () => {
+            for (let i = 0; i < myMissiles.length; i++) {
+                ctx.drawImage(myMissiles[i].img, myMissiles[i].x, myMissiles[i].y, myMissiles[i].width, myMissiles[i].height)
+
+                 if (myMissiles[i].x < 40) {
+                    myMissiles[i].x += 10
+                }
+                if (myMissiles[i].x > 540) {
+                    myMissiles[i].x -= 10
+                }
+                myMissiles[i].y -= 6
+                // if (myMissiles[i].y < 0) {
+                //     myMissiles[i].y = turtle.y
+                // }
+
+
+            }
+            
+        }
+
+        // add a for loop for the missiles + a splice to delete missiles 
         let collisionDetection = () => {
             for (let i = 0; i < myBottles.length; i++) {
-                if (
-                    (tearMissile1.y <= myBottles[i].y + 50) &&
-                    (tearMissile1.y >= myBottles[i].y) &&
-                    (tearMissile1.x >= myBottles[i].x) &&
-                    (tearMissile1.x <= myBottles[i].x + 50)
-                ) {
-                    myBottles.splice(i, 1);
-                    bottlesAnnihilated += 1;
+                for (let j = 0; j < myMissiles.length; j++) {
+
+                    if (
+                        (myMissiles[j].y <= myBottles[i].y + 50) &&
+                        (myMissiles[j].y >= myBottles[i].y) &&
+                        (myMissiles[j].x >= myBottles[i].x) &&
+                        (myMissiles[j].x <= myBottles[i].x + 50)
+                    ) {
+                        myBottles.splice(i, 1);
+                        myMissiles.splice(j, 1);
+                        bottlesAnnihilated += 1;
+
+                    }
                 }
             }
+
         }
 
         let drawScore = () => {
@@ -214,9 +230,11 @@
 
         let gameOver = () => {
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height)
-
+            document.getElementById("tryAgain").className = "display"
         }
-    
+        // document.getElementById("tryAgain")
+
+      
     };
     
         
