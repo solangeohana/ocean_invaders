@@ -23,16 +23,17 @@
         let imgBottle = new Image()
         imgBottle.src = 'images/bottle.png'
     
+        let imgSplash = new Image()
+        imgSplash.src = 'images/splash.png'
+
         let imgGameOver = new Image()
         imgGameOver.src = 'images/gameOver.png'
 
         let pop = new Audio()
-        pop.src = ''
+        pop.src = 'audio/blop.mp3'
 
-
-        function playSoundCollision() {
-            pop.play();
-          }
+        let cling = new Audio()
+        cling.src = 'audio/levelUp.mp3'
 
         let frameCounter = 0
         bottlesAnnihilated = 0
@@ -73,6 +74,7 @@
                 this.img = imgBottle
             }
         }
+
     
         let myMissiles =  [];
 
@@ -166,6 +168,7 @@
             }
 
             if (myBottles.length === 0) {
+                playSoundLevelUp();
                 addTwoRawsOfBottles();
             }
         }
@@ -202,10 +205,13 @@
                         (myMissiles[j].x >= myBottles[i].x) &&
                         (myMissiles[j].x <= myBottles[i].x + 50)
                     ) {
+
+                        ctx.drawImage(imgSplash, myBottles[i].x, myBottles[i].y, 50, 50)
+
                         myBottles.splice(i, 1);
                         myMissiles.splice(j, 1);
                         bottlesAnnihilated += 1;
-
+                        playSoundCollision();
                     }
                 }
             }
@@ -224,14 +230,21 @@
         document.onkeydown = (event) => {
             if (event.key === 'ArrowRight') {
                 turtle.x += 18
-                tearMissile.x += 18
+                tearMissile1.x += 18
             }
             if (event.key === 'ArrowLeft') {
                 turtle.x -= 18
-                tearMissile.x -= 18
+                tearMissile1.x -= 18
             }
         }
-    
+        
+        function playSoundCollision() {
+            pop.play();
+          }
+
+        function playSoundLevelUp() {
+            cling.play();
+          }
     
         function startGame() {
             draw()
@@ -242,9 +255,7 @@
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height)
             document.getElementById("tryAgain").className = "display"
         }
-        // document.getElementById("tryAgain")
 
-      
     };
 
     
