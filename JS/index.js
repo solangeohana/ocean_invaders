@@ -26,6 +26,14 @@
         let imgGameOver = new Image()
         imgGameOver.src = 'images/gameOver.png'
 
+        let pop = new Audio()
+        pop.src = ''
+
+
+        function playSoundCollision() {
+            pop.play();
+          }
+
         let frameCounter = 0
         bottlesAnnihilated = 0
 
