@@ -28,8 +28,9 @@ footer {
 
 h1 {
   font-size: 40px;
-  background-color: rgb(92, 111, 219);
+  background-color: #313A75;
   color: rgb(202, 218, 236);
+  opacity: 80%;
   padding: 20px 40px;
   border: 0;
   box-shadow: 0;
@@ -46,6 +47,7 @@ h1 {
   font-size: 20px;
   font-family: "arial";
   color: #313A75;
+  opacity: 90%;
 
 }
 
@@ -57,11 +59,13 @@ body button {
   font-size: 30px;
   background-color: #313A75;
   color: #7279A5;
-  padding: 20px 40px;
+  padding: 10px 30px;
   border: 0;
   box-shadow: 0;
-  border-radius: 5px;
+  border-radius: 50px;
   margin-bottom: 20px;
+  opacity: 80%;
+  cursor: pointer;
 }
 
 #game-board {
@@ -69,9 +73,9 @@ body button {
   padding: 20px 0px;
 }
 
-#canvas {
-  border: 1px blue
-}
+/* #canvas {
+  border: 8px solid #313A75 ;
+} */
 
 /* .tryAgain {
   text-align: center;
